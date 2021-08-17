@@ -5,3 +5,5 @@ This repository is for random scripts and things that I want to keep for future 
 
 **advent_of_code_2020** contains my attempts to follow up and solve that year advent of code but I was too lazy to continue
 spending my freetime on that.
+
+**random_scripts** contains mainly python scripts for testing and checking ideas.
