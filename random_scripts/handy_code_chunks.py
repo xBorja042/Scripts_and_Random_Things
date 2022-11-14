@@ -6,9 +6,9 @@ def clean_dataset(df):
     indices_to_keep = ~df.isin([np.nan, np.inf, -np.inf]).any(1)
     return df[indices_to_keep].astype(np.float64)
 
-SNIPETS
+## SNIPETS
 
-CALLBACKS
+## CALLBACKS
 
 class reduce_prints(tf.keras.callbacks.Callback):
     # Print the loss and mean absolute error after each epoch
@@ -18,7 +18,7 @@ class reduce_prints(tf.keras.callbacks.Callback):
 
 
 
-PITIDINNN
+## PITIDINNN
 import winsound
 
 def alarm():
@@ -40,7 +40,7 @@ alarm()
 
 
 
-MEDIR TIEMPO
+## MEASURE TIME
 
 import time
 from datetime import timedelta
@@ -53,7 +53,7 @@ str(timedelta(seconds=elapsed))[:-7]
 
 
 
-PLOTEADO DINAMICO EN JUPYTER 
+## PLOTEADO DINAMICO EN JUPYTER 
 
 %matplotlib inline
 import matplotlib.pyplot as plt
@@ -73,7 +73,7 @@ for i in [(100, 40), (60, 40), (50, 20), (20,10), (10,10)]:
     display.display(pl.gcf())
 
 
-ENSEÑAR TODO
+## DISPLAY ALL PANDAS DATA
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
@@ -81,7 +81,7 @@ pd.set_option('display.max_colwidth', None)
 
 
 
-JOBLIB Y THREADS
+## JOBLIB AND THREADS
 import threading
 from joblib import Parallel, delayed
  
@@ -96,24 +96,24 @@ embs
 
 
 
-PARA BORRAR UN ENV
+## PARA BORRAR UN ENV
 conda deactivate
 conda env remove --name ENV
 Posibilidad de tener que borrar el dir.
 
 
-PARA CREAR UN ENV
+## PARA CREAR UN ENV
 conda create -p /opt/xva/devel/ENV
 (desde yaml)
 conda env create --name envname --file=algo.yml
 conda env create -p /opt/xva/devel/bert_embs --file=bert.yml
 
-PARA LISTAR ENVS
+## PARA LISTAR ENVS
 conda env list
-PARA LISTAR PACKAGES
+## PARA LISTAR PACKAGES
 !pip list --local
 
-PARA INSTALAR PACKAGES / MOSTRAR EL ENVIRONMENT EN EL LAUNCHER
+## PARA INSTALAR PACKAGES / MOSTRAR EL ENVIRONMENT EN EL LAUNCHER
 $ source activate /opt/xva/devel/bert_embs/
 (cenv)$ conda install ipykernel
 (cenv)$ ipython kernel install --user --name=<any_name_for_kernel>
@@ -130,7 +130,7 @@ rm -r DIRE_QUE_MAS_PESE (hugggin)
 
 PROBLEMA DE CONDA
 LISTAR PAQUETES ENVIRONTMET
-ls /opt/xva/devel/tf1_gpu/lib/python3.7/site-packages/
+ls /xx/YY/lib/python3.7/site-packages/
 FULMIAR EL PAQUETE FEO
 rm -R /XX/YY
 
