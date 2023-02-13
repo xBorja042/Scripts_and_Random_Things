@@ -2,7 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-print(" Script to test if order in a distribution does matter on the result. ")
+print(" Script to test if order in a distribution does change the distribution when drawing a random sample. ")
 
 experiment_length = 5000
 unbalance_fraction = 0.1
