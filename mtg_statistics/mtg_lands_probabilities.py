@@ -80,12 +80,7 @@ print(" The first result may not be 100% intuitive. with 1 more draw you will ha
 
 #%%
 import random
-print("Simulacion")
-
-deck_size = 60
-remaining_lands = 23
-no_lands = deck_size - remaining_lands
-hand_size = 7
+print(" FOURTH QUESTION ---> Ways of checking the previous result. Simulations")
 
 
 def simulate_hands(hands_to_simulate: int, lands_in_deck: int, hand_size: int = 7,
@@ -115,37 +110,44 @@ def simulate_hands(hands_to_simulate: int, lands_in_deck: int, hand_size: int = 
 
 import pandas as pd
 import matplotlib.pyplot as plt
-# pd.Series(hands_value_list).hist()
+
+deck_size = 60
+lands_in_deck = 20
+no_lands = deck_size - lands_in_deck
+hand_size = 7
+
+
+
 
 n_simulations = 1000000
 hands_value_list_draw, hands_rep_list_draw = simulate_hands(hands_to_simulate=n_simulations, 
-                lands_in_deck=22, hand_size=10)
+                lands_in_deck=lands_in_deck, hand_size=10)
 
 hands_value_list_play, hands_rep_list_play = simulate_hands(hands_to_simulate=n_simulations, 
-                lands_in_deck=22, hand_size=9)
+                lands_in_deck=lands_in_deck, hand_size=9)
 
-df_results = pd.DataFrame({"hand_value_play": hands_value_list_play, "hand_rep_play": hands_rep_list_play,
-                           "hand_value_draw": hands_value_list_draw, "hand_rep_draw": hands_rep_list_draw})
+df_results = pd.DataFrame({"simulated_hands_otp": hands_value_list_play, "hand_rep_play": hands_rep_list_play,
+                           "simulated_hands_otd": hands_value_list_draw, "hand_rep_draw": hands_rep_list_draw})
 
 # sns.kdeplot(data=df_results, x="hand_value_play")
 # sns.kdeplot(data=df_results, x="hand_value_draw")
 title = "Distribution of lands in "  + str(n_simulations) + " simulated hands"  
 
-land_draw_prob = [compute_probs_initial_hand(lands, 22, 10, 60, False)/100 for lands in range(11)]
+land_draw_prob = [compute_probs_initial_hand(lands, lands_in_deck, 10, 60, False)/100 for lands in range(11)]
 
-land_play_prob = [compute_probs_initial_hand(lands, 22, 9, 60, False)/100 for lands in range(10)]
+land_play_prob = [compute_probs_initial_hand(lands, lands_in_deck, 9, 60, False)/100 for lands in range(10)]
 
 # sns.kdeplot(data=df_results[["hand_value_play", "hand_value_draw"]]).set_title(title)
 
-df_hand_otp = (df_results["hand_value_play"].value_counts()/n_simulations).to_frame().sort_index()
+df_hand_otp = (df_results["simulated_hands_otp"].value_counts()/n_simulations).to_frame().sort_index()
 df_hand_otp["theoretical_value"] = land_play_prob
-df_hand_otd = (df_results["hand_value_draw"].value_counts()/n_simulations).to_frame().sort_index()
+df_hand_otd = (df_results["simulated_hands_otd"].value_counts()/n_simulations).to_frame().sort_index()
 df_hand_otd["theoretical_value"] = land_draw_prob
 
 
 
 fig, axes = plt.subplots(2, 1)
-plt.suptitle("Land number probabilities", fontsize=14)
+plt.suptitle("Land number probabilities at third turn PLAY vs DRAW ", fontsize=14)
 df_hand_otp.plot.bar(ax=axes[0])
 df_hand_otd.plot.bar(ax=axes[1])
 
@@ -153,15 +155,17 @@ df_hand_otd.plot.bar(ax=axes[1])
 #%%
 
 def compute_prob_N_lands_T_turn(desired_lands: int, turn: int, 
-                                lower_bound_lands: int, upper_bound_lands) -> None:  
+                                lower_bound_lands: int, upper_bound_lands: int) -> None:  
     print(f"You want to know the chances of having exactly {desired_lands} lands in turn {turn}")
     for i in range(lower_bound_lands, upper_bound_lands + 1):
         p = compute_probs_initial_hand(desired_lands, i, turn + 7, 60, False)
-        print(f" For {i} lands in deck {p}")
+        print(f" Probability of {desired_lands} lands in T{turn} For {i} lands in deck (%)---> {p}")
     
-compute_prob_N_lands_T_turn(3, 3, 20, 23)
+compute_prob_N_lands_T_turn(3, 3, 20, 25)
 
 #%%
+
+print(" FIFTH QUESTION ---> Should I keep a starting hand with 1 land if I want 3 lands on t3?")
 print(" If you begin with 1 Land initial 7 cards hand ")
 next_draw_land = compute_probs_initial_hand(1, 21, 1, 53, False)
 print(" Probabilty of next draw land ", next_draw_land)
