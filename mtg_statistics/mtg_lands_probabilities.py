@@ -151,6 +151,23 @@ plt.suptitle("Land number probabilities at third turn PLAY vs DRAW ", fontsize=1
 df_hand_otp.plot.bar(ax=axes[0])
 df_hand_otd.plot.bar(ax=axes[1])
 
+#%%
+print("Same problem. Javi's Solution: ")
+
+import numpy as np
+
+def simulate_hand(deck, hand_size):
+    return np.random.choice(deck, hand_size, replace=False)
+
+lands_in_deck = 22
+deck_size, hand_size = 60, 7
+hands_to_simulate = int(1e5)
+
+deck = [1] * lands_in_deck + [0] * (deck_size - lands_in_deck)
+
+hands_value_list = [simulate_hand(deck, hand_size).sum() for _ in range(hands_to_simulate)]
+
+
 
 #%%
 
@@ -176,6 +193,36 @@ print(" Probabilty of next 2 draws are land ", next_two_draws_land)
 print(f" Which indeed is the same as computing  21/53 *20/52 = {np.round(21/53 *20/52, 4)}")
 
 
+#%%
+print(" SIXTH QUESTION ---> Probability of drawing a hand with 1 or 2 swamps with mixed lands?")
+
+deck_size = 60
+tlands = 8
+mutavaults = 4
+swamps = 10
+castle = 1
+spells = 60 - tlands - mutavaults - swamps - castle
+simulated_hands = 1000000
+# print("Total probabilities: ")
+# for i in range(8):
+#     print(compute_probs_initial_hand(i, 10, 7, 60, False))
+    
+print("Prob for 1 or 2 swamps --> ", compute_probs_initial_hand(1, swamps, 7, 60, False) + compute_probs_initial_hand(2, swamps
+                                                                                                                     , 7, 60, False))
+
+d = tlands * ["T"] + mutavaults * ["M"] + swamps * ["L"] + castle * ["C"] + spells * ["S"]
+
+
+
+hands = [''.join(np.sort(np.random.choice(d, 7, replace=False)).tolist()) for i in range(simulated_hands)]
+
+
+import pandas as pd 
+
+hands_stats = pd.Series(hands).value_counts().to_frame(name="hands")
+hands_stats["%"] = hands_stats["hands"] * 100 / simulated_hands
+n = 6
+print(f" {n} Most repeated hands ---> \n {hands_stats.head(n)}")
 
 
 
