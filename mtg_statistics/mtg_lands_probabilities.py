@@ -219,10 +219,15 @@ hands = [''.join(np.sort(np.random.choice(d, 7, replace=False)).tolist()) for i 
 
 import pandas as pd 
 
-hands_stats = pd.Series(hands).value_counts().to_frame(name="hands")
-hands_stats["%"] = hands_stats["hands"] * 100 / simulated_hands
+hands_stats = pd.Series(hands).value_counts().to_frame(name="hands").reset_index()
+hands_stats = hands_stats.rename(columns= {'index': 'hand_representation'})
+hands_stats["%_appearance"] = hands_stats["hands"] * 100 / simulated_hands
+hands_stats["n_lands"] = hands_stats["hand_representation"].apply(lambda x: x.count("T") + 
+                                                                  x.count("M") + x.count("L") + x.count("C"))
+
 n = 6
 print(f" {n} Most repeated hands ---> \n {hands_stats.head(n)}")
+
 
 
 
