@@ -19,7 +19,7 @@ def compute_probs_initial_hand(desired_lands_in_starting_hand: int, total_land_c
 
 
 for lands in [21, 22, 23]:
-    p = compute_probs_initial_hand(3, lands, 7, 60, False)
+    p = compute_probs_initial_hand(1, 6, 7, 60, False)
     print("Prob to begin with 3 lands (%) --> ", p)
 
 
@@ -27,9 +27,9 @@ for lands in [21, 22, 23]:
 print(" SECOND QUESTION ---> Probability of having at least 1 land in hand. It should be equal to 1 minus 0 lands in initial hand: ")
 
 print("Using Hypergeometric dist: ")
-total_land_cards = 22
+total_land_cards = 12
 desired_lands_in_starting_hand = 0
-no_lands_prob = compute_probs_initial_hand(desired_lands_in_starting_hand, total_land_cards, 7, 60, False)
+no_lands_prob = compute_probs_initial_hand(desired_lands_in_starting_hand, total_land_cards, 8, 60, False)
 print(f" Prob of 0 lands hand: {100-no_lands_prob}%")
 
 
@@ -39,7 +39,7 @@ desired_lands_in_starting_hand = 0
 
 for i in range(7):
     desired_lands_in_starting_hand = desired_lands_in_starting_hand + 1
-    prob_at_least_one_land += compute_probs_initial_hand(desired_lands_in_starting_hand, total_land_cards, 7, 60, False)
+    prob_at_least_one_land += compute_probs_initial_hand(desired_lands_in_starting_hand, total_land_cards, 8, 60, False)
 
     
 print(f"Iteratively way of computing at least 1 land probability (%) {prob_at_least_one_land}")
